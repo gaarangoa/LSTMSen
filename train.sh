@@ -5,7 +5,7 @@
 #SBATCH -n 10
 #SBATCH -t 144:00:00
 #SBATCH --mem=500G
-#SBATCH --gres=gpu:pascal:2
+#SBATCH --gres=gpu:pascal:1
 
 echo "Allocated GPU with ID $CUDA_VISIBLE_DEVICES"
 # echo "Activate virtual environment: "
