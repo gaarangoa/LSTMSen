@@ -15,7 +15,7 @@ def predict(sentence=''):
     encoded_docs = [one_hot(d, vocab_size) for d in docs] #uses a hash function to represent words, if words are similar they will have collisions
     padded_docs = pad_sequences(encoded_docs, maxlen=max_length, padding='post')
     pred = model.predict([padded_docs])
-    return pred
+    return {"neg": pred[0][0], "pos": pred[0][1]}
 
 docs = "Hay personas que parecen que no estan haciendo nada ante los ojos de los demas, pero lo que no saben es que estan dando lo mejor que pueden. Denles  chance abrirse y entenderlos"
 predict(docs)
