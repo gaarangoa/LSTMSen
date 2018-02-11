@@ -1,2 +1,3 @@
 dataset.tsv
 ./epoch/
+model.hdf5

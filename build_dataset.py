@@ -13,7 +13,7 @@ from sklearn.preprocessing import StandardScaler
 import nltk
 import string
 
-port = sys.argv[1] #port where the mongo client is connected
+port = int(sys.argv[1]) #port where the mongo client is connected
 
 # I store my data in a mongo db container. 
 client = MongoClient("mongodb://localhost", port)
@@ -56,14 +56,18 @@ for i in raw_neg:
         except Exception as e:
             pass
 
-
+print("positive: ", len(pos), "negative: ", len(neg))
 fo = open('dataset.tsv', 'w')
 
-for i in pos:
-    fo.write(i+'\tpositive\n')
+_min = min([len(pos), len(neg)])
 
-for i in neg:
-    fo.write(i+'\tnegative\n')
+for i in pos[:_min]:
+    fo.write(i.replace('positivo', ' ')+'\tpositive\n')
+
+for i in neg[:_min]:
+    fo.write(i.replace('negativo', ' ')+'\tnegative\n')
+
+print("positive: ", len(pos), "negative: ", len(neg))
 
 fo.close()
 
