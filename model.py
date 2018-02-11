@@ -1,8 +1,3 @@
-from datetime import datetime
-from requests import Request, Session
-from pymongo import MongoClient
-import time
-from dateutil import parser
 import json
 from keras.preprocessing.text import one_hot
 from keras.preprocessing.sequence import pad_sequences
