@@ -1,13 +1,17 @@
 import os
 from flask import Flask, jsonify, request, send_from_directory
-import fasttext as ft
 from utils import tokenizerx
+import subprocess
 
-classifier = ft.load_model('/src/sentiment/model/tweets.model.bin')
+
+cmds = ['/src/bin/fastText-0.1.0/fasttext', 'predict-prob', '/src/sentiment/model/tweets.model.bin', '-', '5']
+interactive_model = subprocess.Popen( cmds, stdout=subprocess.PIPE, stdin=subprocess.PIPE )
 
 def make_prediction(query):
-    labels = classifier.predict_proba([query.lower()], k=2)[0]
-    labels = map(lambda (k, v): {'tag': k.replace('__label__',"").replace('__',""), 'score': v}, labels)
+    global interactive_model
+    interactive_model.stdin.write(query + '\n')
+    i = " ".join(interactive_model.stdout.readline().strip().split('__label__')).split()
+    labels = {i[0]: float(i[1]), i[2]:float(i[3])}
     return labels
 
 app = Flask(__name__)
