@@ -1,3 +1,6 @@
-dataset.tsv
+./dataset/
+dataset/*
 ./epoch/
 model.hdf5
+*.pyc
+model/*

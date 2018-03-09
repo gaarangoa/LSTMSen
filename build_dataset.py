@@ -17,14 +17,15 @@ port = int(sys.argv[1]) #port where the mongo client is connected
 
 # I store my data in a mongo db container. 
 client = MongoClient("mongodb://localhost", port)
-raw_neg_1 = [i for i in client.twitter['%3Aenojado%20triste&l=es'].find()[1:] if not '@' in i['text']]
-raw_neg_2 = [i for i in client.twitter['%3Anegativo&l=es'].find()[1:] if not '@' in i['text']]
 
-raw_neg = raw_neg_1 + raw_neg_2
-raw_pos_1 = [i for i in client.twitter['%3Afeliz&l=es'].find()[1:] if not '@' in i['text']]
-raw_pos_2 = [i for i in client.twitter['%3Apositivo&l=es'].find()[1:] if not '@' in i['text']]
+# raw_neg_1 = [i for i in client.twitter['%3Aenojado%20triste&l=es'].find()[1:] if not '@' in i['text']]
+raw_neg = [i for i in client.twitter['%3Anegativo&l=es'].find()[1:] if not '@' in i['text']]
+# raw_neg = raw_neg_2 + raw_neg_1
 
-raw_pos = raw_pos_1 + raw_pos_2
+# raw_pos_1 = [i for i in client.twitter['%3Afeliz&l=es'].find()[1:] if not '@' in i['text']]
+raw_pos = [i for i in client.twitter['%3Apositivo&l=es'].find()[1:] if not '@' in i['text']]
+
+# raw_pos = raw_pos_2 + raw_pos_1
 
 def clean_tweet(tweet):
     return ' '.join(tweet.encode('utf-8').translate(None, string.punctuation).replace('\n',' ').split()).lower()
@@ -62,15 +63,16 @@ fo = open('dataset.tsv', 'w')
 _min = min([len(pos), len(neg)])
 
 for i in pos[:_min]:
-    fo.write(i.replace('positivo', ' ')+'\tpositive\n')
+    fo.write(i+'\tpositive\n')
 
 for i in neg[:_min]:
-    fo.write(i.replace('negativo', ' ')+'\tnegative\n')
+    fo.write(i+'\tnegative\n')
 
-print("positive: ", len(pos), "negative: ", len(neg))
+print("positive: ", len(pos), "negative: ", len(neg), "selected: ", _min)
 
 fo.close()
 
 
-
+# scp dataset.tsv  gustavo1@newriver1.arc.vt.edu:/home/gustavo1/deep_learning/LSTMSen/
+# scp gustavo1@newriver1.arc.vt.edu:/home/gustavo1/deep_learning/LSTMSen/epoch/model.hdf5 .
 
