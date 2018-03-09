@@ -1,7 +1,6 @@
 import os
 from flask import Flask, jsonify, request, send_from_directory
 import fasttext as ft
-import config as cn
 from utils import tokenizerx
 
 classifier = ft.load_model('/src/sentiment/model/tweets.model.bin')
