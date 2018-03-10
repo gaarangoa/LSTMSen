@@ -20,8 +20,10 @@ app = Flask(__name__)
 def info():
     return 'Tag analysis api'
 
-@app.route("/predict/<sentence>", methods=['GET', 'POST'])
-def classify_text(sentence):
+@app.route("/predict/", methods=['GET', 'POST'])
+def classify_text():
+    data = request.get_json()
+    sentence = data['sentence']
     response = make_prediction( tokenizerx( sentence.lower() ) )
     return jsonify(response)
 
