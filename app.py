@@ -16,6 +16,7 @@ def make_prediction(query):
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def info():
     return 'Tag analysis api'
