@@ -25,7 +25,7 @@ def info():
 def classify_text():
     data = request.get_json()
     sentence = data['sentence']
-    response = make_prediction( tokenizerx( sentence.lower() ) )
+    response = make_prediction( tokenizerx( sentence ) )
     return jsonify(response)
 
 if __name__ == '__main__':
