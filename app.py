@@ -4,7 +4,7 @@ from utils import tokenizerx
 import subprocess
 
 
-cmds = ['/src/bin/fastText-0.1.0/fasttext', 'predict-prob', '/src/sentiment/dataset/tweets.model.bin', '-', '5']
+cmds = ['/src/bin/fastText-0.1.0/fasttext', 'predict-prob', '/src/sentiment/model/tweets.model.bin', '-', '5']
 interactive_model = subprocess.Popen( cmds, stdout=subprocess.PIPE, stdin=subprocess.PIPE )
 
 def make_prediction(query):
